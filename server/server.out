@@ -1,0 +1,8 @@
+nohup: ignoring input
+
+> recycle-system-server@0.1.0 start
+> node src/index.js
+
+Connected to in-memory MongoDB
+Server listening on http://localhost:4000
+[0mGET /api/health [32m200[0m 2.082 ms - 54[0m
