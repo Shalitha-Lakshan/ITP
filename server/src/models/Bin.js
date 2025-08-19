@@ -1,17 +1,25 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const BinSchema = new mongoose.Schema(
+const binSchema = new mongoose.Schema(
   {
     code: { type: String, required: true, unique: true },
-    name: { type: String },
     location: {
-      address: { type: String },
-      latitude: { type: Number },
-      longitude: { type: Number }
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point',
+      },
+      coordinates: { type: [Number], required: true }, // [lng, lat]
     },
-    isActive: { type: Boolean, default: true }
+    address: { type: String },
+    city: { type: String },
+    isActive: { type: Boolean, default: true },
+    currentWeightKg: { type: Number, default: 0 },
+    capacityKg: { type: Number, default: 50 },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Bin', BinSchema);
+binSchema.index({ location: '2dsphere' });
+
+export const Bin = mongoose.model('Bin', binSchema);

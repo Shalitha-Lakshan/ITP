@@ -1,21 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const InventoryItemSchema = new mongoose.Schema(
+const inventoryItemSchema = new mongoose.Schema(
   {
-    itemType: { type: String, enum: ['bottle', 'material', 'product'], required: true },
-    stage: {
-      type: String,
-      enum: ['collected', 'sorted', 'cleaned', 'shredded', 'pelletized', 'manufactured'],
-      required: true,
-      index: true
-    },
-    quantityUnits: { type: Number, default: 0 },
-    weightKg: { type: Number, default: 0 },
-    sourceDeposit: { type: mongoose.Schema.Types.ObjectId, ref: 'Deposit' },
-    currentLocation: { type: String },
-    batchId: { type: String }
+    category: { type: String, enum: ['BOTTLE', 'LID', 'SHRED_DUST', 'SHRED_RICE', 'SHRED_RING'], required: true },
+    color: { type: String, enum: ['MIXED', 'WHITE', 'BLUE', 'GREEN', 'RED', 'YELLOW', 'BLACK', 'OTHER'], default: 'MIXED' },
+    weightKg: { type: Number, required: true },
+    source: { type: String, enum: ['DROP', 'PROCESSING', 'ADJUSTMENT'], default: 'DROP' },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('InventoryItem', InventoryItemSchema);
+export const InventoryItem = mongoose.model('InventoryItem', inventoryItemSchema);
