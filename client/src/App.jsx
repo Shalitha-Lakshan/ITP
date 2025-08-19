@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
+import { CartProvider } from './context/CartContext.jsx';
+import Header from '@/components/layout/Header.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
@@ -26,6 +28,8 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <CartProvider>
+          <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -43,6 +47,7 @@ export default function App() {
           <Route path="/finance" element={<PrivateRoute><Finance /></PrivateRoute>} />
           <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
         </Routes>
+        </CartProvider>
       </BrowserRouter>
     </AuthProvider>
   );
